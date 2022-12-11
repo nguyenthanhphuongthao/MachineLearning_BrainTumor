@@ -77,51 +77,51 @@ st.pyplot(fig1)
 
 st.write("Kết quả dự đoán của model trên tập dữ liệu hình MRI có khối u tuyến yên:")
 fig2 = plt.figure(figsize=(12,8))
-p = os.listdir('data/Testing/')
-c=1
+p1 = os.listdir('data/Testing/')
+c1=1
 for i in os.listdir('data/Testing/pituitary_tumor/')[:16]:
-    plt.subplot(4,4,c)
+    plt.subplot(4,4,c1)
     
-    img = cv2.imread('data/Testing/pituitary_tumor/'+i,0)
-    img1 = cv2.resize(img, (200,200))
-    img1 = img1.reshape(1,-1)/255
-    p = sv.predict(img1)
-    plt.title(dec[p[0]])
+    img1 = cv2.imread('data/Testing/pituitary_tumor/'+i,0)
+    img11 = cv2.resize(img1, (200,200))
+    img11 = img11.reshape(1,-1)/255
+    p1 = sv.predict(img11)
+    plt.title(dec[p1[0]])
     plt.axis('off')
-    plt.imshow(img, cmap='gray')
+    plt.imshow(img1, cmap='gray')
     c+=1
 st.pyplot(fig2)
 
 st.write("Kết quả dự đoán của model trên tập dữ liệu hình MRI có khối u thần kinh đệm:")
 fig3 = plt.figure(figsize=(12,8))
-p = os.listdir('data/Testing/')
-c=1
+p2 = os.listdir('data/Testing/')
+c2=1
 for i in os.listdir('data/Testing/pituitary_tumor/')[:16]:
-    plt.subplot(4,4,c)
+    plt.subplot(4,4,c2)
     
-    img = cv2.imread('data/Testing/glioma_tumor/'+i,0)
-    img1 = cv2.resize(img, (200,200))
-    img1 = img1.reshape(1,-1)/255
-    p = sv.predict(img1)
-    plt.title(dec[p[0]])
+    img2 = cv2.imread('data/Testing/glioma_tumor/'+i,0)
+    img12 = cv2.resize(img2, (200,200))
+    img12 = img12.reshape(1,-1)/255
+    p = sv.predict(img12)
+    plt.title(dec[p2[0]])
     plt.axis('off')
-    plt.imshow(img, cmap='gray')
+    plt.imshow(img2, cmap='gray')
     c+=1
 st.pyplot(fig3)
 
 st.write("Kết quả dự đoán của model trên tập dữ liệu hình MRI có khối u màng não:")
 fig4 = plt.figure(figsize=(12,8))
-p = os.listdir('data/Testing/')
-c=1
+p3 = os.listdir('data/Testing/')
+c3=1
 for i in os.listdir('data/Testing/meningioma_tumor/')[:16]:
-    plt.subplot(4,4,c)
+    plt.subplot(4,4,c3)
     
-    img = cv2.imread('data/Testing/meningioma_tumor/'+i,0)
-    img1 = cv2.resize(img, (200,200))
-    img1 = img1.reshape(1,-1)/255
-    p = sv.predict(img1)
+    img3 = cv2.imread('data/Testing/meningioma_tumor/'+i,0)
+    img13 = cv2.resize(img3, (200,200))
+    img13 = img13.reshape(1,-1)/255
+    p3 = sv.predict(img13)
     plt.title(dec[p[0]])
     plt.axis('off')
-    plt.imshow(img, cmap='gray')
+    plt.imshow(img3, cmap='gray')
     c+=1
 st.pyplot(fig4)
