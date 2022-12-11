@@ -9,7 +9,7 @@ import streamlit as st
 st.title("Ứng dụng SVM vào việc phân loại hình MRI phát hiện khối u não")
 # Prepare/collect data
 path = os.listdir('data/Training/')
-classes = {'no_tumor':0, 'pituitary_tumor':1}
+classes = {'no_tumor':0, 'pituitary_tumor':1, 'glioma_tumor':2, 'meningioma_tumor':3}
 
 X = []
 Y = []
@@ -57,13 +57,13 @@ st.write("Testing Score:", sv.score(xtest, ytest))
 pred = sv.predict(xtest)
 
 #TEST MODEL
-dec = {0:'No Tumor', 1:'Positive Tumor'}
+dec = {0:'No Tumor', 1:'pituitary_tumor', 2:'glioma_tumor', 3:'meningioma_tumor'}
 st.write("Kết quả dự đoán của model trên tập dữ liệu hình MRI không có khối u não:")
 fig1 = plt.figure(figsize=(12,8))
 p = os.listdir('data/Testing/')
 c=1
-for i in os.listdir('data/Testing/no_tumor/')[:9]:
-    plt.subplot(3,3,c)
+for i in os.listdir('data/Testing/no_tumor/')[:16]:
+    plt.subplot(4,4,c)
     
     img = cv2.imread('data/Testing/no_tumor/'+i,0)
     img1 = cv2.resize(img, (200,200))
@@ -75,7 +75,7 @@ for i in os.listdir('data/Testing/no_tumor/')[:9]:
     c+=1
 st.pyplot(fig1)
 
-st.write("Kết quả dự đoán của model trên tập dữ liệu hình MRI có khối u não:")
+st.write("Kết quả dự đoán của model trên tập dữ liệu hình MRI có khối u tuyến yên:")
 fig2 = plt.figure(figsize=(12,8))
 p = os.listdir('data/Testing/')
 c=1
@@ -91,3 +91,37 @@ for i in os.listdir('data/Testing/pituitary_tumor/')[:16]:
     plt.imshow(img, cmap='gray')
     c+=1
 st.pyplot(fig2)
+
+st.write("Kết quả dự đoán của model trên tập dữ liệu hình MRI có khối u thần kinh đệm:")
+fig3 = plt.figure(figsize=(12,8))
+p = os.listdir('data/Testing/')
+c=1
+for i in os.listdir('data/Testing/pituitary_tumor/')[:16]:
+    plt.subplot(4,4,c)
+    
+    img = cv2.imread('data/Testing/glioma_tumor/'+i,0)
+    img1 = cv2.resize(img, (200,200))
+    img1 = img1.reshape(1,-1)/255
+    p = sv.predict(img1)
+    plt.title(dec[p[0]])
+    plt.axis('off')
+    plt.imshow(img, cmap='gray')
+    c+=1
+st.pyplot(fig3)
+
+st.write("Kết quả dự đoán của model trên tập dữ liệu hình MRI có khối u màng não:")
+fig4 = plt.figure(figsize=(12,8))
+p = os.listdir('data/Testing/')
+c=1
+for i in os.listdir('data/Testing/meningioma_tumor/')[:16]:
+    plt.subplot(4,4,c)
+    
+    img = cv2.imread('data/Testing/meningioma_tumor/'+i,0)
+    img1 = cv2.resize(img, (200,200))
+    img1 = img1.reshape(1,-1)/255
+    p = sv.predict(img1)
+    plt.title(dec[p[0]])
+    plt.axis('off')
+    plt.imshow(img, cmap='gray')
+    c+=1
+st.pyplot(fig4)
